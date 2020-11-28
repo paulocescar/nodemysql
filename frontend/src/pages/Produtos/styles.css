@@ -1,0 +1,57 @@
+label.thumb{
+    margin-bottom: 20px;
+    border: 1px dashed #ddd;
+    background-size: cover;
+    cursor: pointer;
+    height: 160px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label.thumb input{
+    display: none;
+}
+
+label.thumb.hasThumbnail{
+    border: 0
+}
+
+label.thumb.hasThumbnail img{
+    display: none;
+    width: 100%;
+}
+
+.fleft{
+    float: left;
+}
+
+.card-body{
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 10px;
+}
+h4 {
+    margin: 10px 0 ;
+}
+.checkbox{
+    margin-right: 10px;
+}
+
+.btnphoto{
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    color: #ccc;
+    font-weight: bolder;
+    padding: 10px 15px;
+}
+
+.btnremove{
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    color:white;
+    background: red;
+    font-weight: bolder;
+}
