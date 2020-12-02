@@ -21,7 +21,7 @@ export default class Dashboard extends React.Component {
             <Header></Header>
                 <div className="container">
                     <h1>Dashboard</h1>
-                    
+                    <img src="http://localhost:3333/photo.png" alt="imgs"></img>
                 </div>
             </div>
         );

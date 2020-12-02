@@ -10,6 +10,7 @@ import Users from "./pages/Users";
 import Cobrancas from "./pages/Cobranca";
 import Dashboard from "./pages/Dashboard";
 import Produtos from "./pages/Produtos";
+import Lista_produtos from "./pages/Produtos/lista.js";
 import Header from './pages/Header'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -40,7 +41,9 @@ function App() {
           <Switch>
             <PrivateRoute path="/Home" component={Dashboard} />
             <PrivateRoute path="/users" component={Users} />
-            <PrivateRoute path="/Produtos" component={Produtos} />
+            <PrivateRoute path="/add_Produtos/:id" component={Produtos} />
+            <PrivateRoute path="/add_Produtos" component={Produtos} />
+            <PrivateRoute path="/Produtos" component={Lista_produtos} />
             <PrivateRoute path="/Cobrancas" component={Cobrancas} />
             
             <Route path="*" component={() => <h1>Page not found</h1>} />

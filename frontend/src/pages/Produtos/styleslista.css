@@ -1,0 +1,126 @@
+label.thumb{
+    margin-bottom: 20px;
+    border: 1px dashed #ddd;
+    background-size: cover;
+    cursor: pointer;
+    height: 160px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label.thumb input{
+    display: none;
+}
+
+label.thumb.hasThumbnail{
+    border: 0
+}
+
+label.thumb.hasThumbnail img{
+    display: none;
+    width: 100%;
+}
+
+.fleft{
+    float: left;
+}
+
+.card-body{
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 10px;
+}
+h4 {
+    margin: 10px 0 ;
+}
+.checkbox{
+    margin-right: 10px;
+}
+
+.btnphoto{
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    color: #ccc;
+    font-weight: bolder;
+    padding: 10px 15px;
+}
+
+.btnremove{
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    color:white;
+    background: red;
+    font-weight: bolder;
+}
+
+table{
+    width: 100%;  /*Tested and working as expected: */
+}
+table th{
+    background: #fff;
+}
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: middle;
+    border-top: 1px solid #F2F3F8;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #F2F3F8;
+}
+
+.btndefault{
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.inputgroup{
+    margin-top: 10px;
+    z-index: 2;
+    margin-left: -41px;
+    border-left: 1px solid #fff;
+    background-color: #fff;
+}
+
+.form-control{
+    margin-top: 10px;
+    z-index: 1;
+    border-right: 1px solid #fff;
+}
+#search:focus{
+    margin-top: 10px;
+    z-index: 1;
+}
+.containerbg{
+    background: #F2F3F8;
+}
+
+.chk input {
+    margin-top: 10px;
+    display: none;
+}
+
+.chk span {
+    margin-bottom: -10px;
+    width: 15px;
+    height: 15px;
+    display: block;
+    background-color: #86898b88;
+    border: 1px solid #DDD;
+}
+
+.chk input:checked + span {
+    background-color: #da3550;
+}
+
+.titulo{
+    margin-bottom: 0px;
+    font-weight: bolder;
+    font-size: 15px;
+}
+.freteSku{
+    font-size: 12px;
+}

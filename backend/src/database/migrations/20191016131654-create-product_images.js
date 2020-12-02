@@ -2,30 +2,38 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('addresses', { 
+    return queryInterface.createTable('product_images', { 
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
       },
-      user_id: {
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      url: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      product_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
+        references: { model: 'products', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      zipcode: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      street: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      number: {
+      sort_order: {
         type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      status: {
+        type: Sequelize.ENUM('A','I'),
         allowNull: false,
+      },
+      deleted_at: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -35,10 +43,11 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-    });
+    })
+
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('addresses');
+    return queryInterface.dropTable('product_images');
   }
 };

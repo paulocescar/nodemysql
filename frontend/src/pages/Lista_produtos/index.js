@@ -12,83 +12,25 @@ import Header from '../Header'
 import JoditEditor from "jodit-react";
 
 
-export default function Produtos({ history, match  }){
+export default function Produtos({ history }){
     const [thumbnail, setThumbnail] = useState(null);
     const [photos, setPhotos] = useState([]);
     const [photosArray, setPhotosArray] = useState([]);
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [base_price, setBase_price] = useState('');
-    const [amount, setAmount] = useState('');
-    const [error, setError] = useState('');
+    const [amount, setAmount] = useState('')
+    const [error, setError] = useState('')
 
 	const editor = useRef(null)
 	const config = {
 		readonly: false
-    }
-    
-    let params = match.params;
+	}
+
     const preview = useMemo(() => {
          return thumbnail ? URL.createObjectURL(thumbnail) : '';
     },[thumbnail]);
 
-    useEffect(() => {
-
-        if(params.id){
-            let id = params.id
-            
-            async function loadProduto() {
-                const produto = await api.get('get_product', {
-                    params: {
-                      id: id
-                    }
-                  }, {
-                    headers : { 
-                        // 'x-access-token': localStorage.getItem('x-access-tokenSECRET'),
-                    }
-                }).then((response) => {
-                    if(response.data == null){ history.push('/Produtos'); 
-                    }else{
-                        for(var i = 0; i < response.data.Product_images.length; i++){
-                            createFile('http://127.0.0.1:3333/'+response.data.Product_images[i].url, i, response.data)
-                        }
-                        
-                        setTitle(response.data.title)
-                        setPrice(response.data.price)
-                        setBase_price(response.data.base_price)
-                        setAmount(response.data.amount)
-                        $('.jodit-wysiwyg')[0].innerHTML = response.data.description;
-                        
-                        $('#btnsmt').text('Editar')
-                    }
-                })
-            }
-
-            loadProduto()
-        }
-    }, [])
-
-    async function createFile(url, i, data){
-        
-        photos[i] = url;
-        setPhotos([ ...photos]);
-
-        $('#p'+i).val("http://127.0.0.1:3333/"+url)
-        $('#thumbnail'+i).attr('class','hasThumbnail thumb')
-        $('#thumbnail'+i).attr('style','background-Image: url("'+url+'")')
-
-
-        let response = await fetch(url);
-        let blob = await response.blob();
-        let metadata = {
-            type: 'image/jpeg'
-        };
-        let file = new File([blob], "img"+i+".jpg", metadata);
-    
-        photosArray[i] = file
-        setPhotosArray([...photosArray])
-        
-    }
 
     const addDivImg = (e) => {
         e.preventDefault()
@@ -97,13 +39,12 @@ export default function Produtos({ history, match  }){
 
     const removeDivImg = (position) => {
         setPhotos([ ...photos.filter((_, index) => index != position)]);
-        setPhotosArray([ ...photosArray.filter((_, index) => index != position)]);
     }
 
     const handlePhoto = (e, index) => {
         photos[index] = e.target.value;
         setPhotos([ ...photos]);
-
+        
         if(e !== undefined || e !== null || e !== ''){
             $('#thumbnail'+e.target.id).attr('class','hasThumbnail thumb')
             $('#thumbnail'+e.target.id).attr('style','background-Image: url("'+URL.createObjectURL(e.target.files[0])+'")')
@@ -122,43 +63,24 @@ export default function Produtos({ history, match  }){
         }
         form.append('title', title)
         form.append('description', description)
-        form.append('price', Number(price))
-        form.append('base_price', Number(base_price))
+        form.append('price', price)
+        form.append('base_price', base_price)
         form.append('amount', amount)
 
         try {
-            if(params.id){
-                form.append('id', params.id)
-
-                await api.post('/edit_product', form, { headers: { 
+            await api.post('/add_product', form, { headers: { 
                         // 'x-access-token': localStorage.getItem('x-access-tokenSECRET'),
                         'Content-Type': 'multipart/form-data'
-                    }}
-                ).then(function(response){
-                    if(response.data.auth == false){
-                        history.push('/logout');
-                        console.log(response.data.auth)
-                    }
+                 }}
+            ).then(function(response){
+                if(response.data.auth == false){
+                    window.location.href = 'http://localhost:3000/logout';
+                    console.log(response.data.auth)
+                }
 
-                }).catch(function(err){
-                    console.log(err)
-                });  
-
-            }else{
-                await api.post('/add_product', form, { headers: { 
-                        // 'x-access-token': localStorage.getItem('x-access-tokenSECRET'),
-                        'Content-Type': 'multipart/form-data'
-                    }}
-                ).then(function(response){
-                    if(response.data.auth == false){
-                        history.push('/logout');
-                        console.log(response.data.auth)
-                    }
-
-                }).catch(function(err){
-                    console.log(err)
-                });  
-            }
+            }).catch(function(err){
+                console.log(err)
+            });  
         } catch (err) {
             
             console.log(err);
@@ -199,16 +121,16 @@ export default function Produtos({ history, match  }){
                         <div className="form-group">
                             <label htmlFor="name">Nome do produto *</label>
                             <input id="name" className="form-control" name="title"
-                                placeholder="Ex: Celular, Sapato, Motor, Placa mãe"
-                                value={title}
-                                onChange={event => setTitle(event.target.value)}/>
+                                    placeholder="Ex: Celular, Sapato, Motor, Placa mãe"
+                                    value={title}
+                                    onChange={event => setTitle(event.target.value)}/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="name">Descrição *</label>
                             <JoditEditor name="descricao"
                                 id="desc"
                                 ref={editor}
-                                config={''}
+                                config={config}
                                 tabIndex={0} />
                         </div>
                     </div>
@@ -250,7 +172,7 @@ export default function Produtos({ history, match  }){
                     </div>
                     
                 </div>
-                    <button type="submit" className="btn btn-primary" id="btnsmt">Adicionar produto</button>
+            <button type="submit" className="btn btn-primary">Adicionar produto</button>
             </form>
         </div>
     )

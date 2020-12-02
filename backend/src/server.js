@@ -15,9 +15,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../public/imgs')));
 
 const routes = require('./routes');
 app.use(routes);
 
+console.log("..::Server Started::..")
 app.listen(3333);
